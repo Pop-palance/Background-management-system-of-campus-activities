@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysOrgMapper">
+    
+    <resultMap type="SysOrg" id="SysOrgResult">
+        <result property="oid"    column="oid"    />
+        <result property="opwd"    column="opwd"    />
+        <result property="oname"    column="oname"    />
+        <result property="parentid"    column="parentid"    />
+        <result property="ancestors"    column="ancestors"    />
+        <result property="createtime"    column="createtime"    />
+        <result property="onum"    column="onum"    />
+        <result property="oemail"    column="oemail"    />
+        <result property="ostatus"    column="ostatus"    />
+        <result property="ojob"    column="ojob"    />
+        <result property="orole"    column="orole"    />
+        <result property="onote"    column="onote"    />
+    </resultMap>
+
+    <sql id="selectSysOrgVo">
+        select oid, opwd, oname, parentid, ancestors, createtime, onum, oemail, ostatus, ojob, orole, onote from sys_org
+    </sql>
+
+    <select id="selectSysOrgList" parameterType="SysOrg" resultMap="SysOrgResult">
+        <include refid="selectSysOrgVo"/>
+        <where>  
+            <if test="opwd != null  and opwd != ''"> and opwd = #{opwd}</if>
+            <if test="oname != null  and oname != ''"> and oname like concat('%', #{oname}, '%')</if>
+            <if test="parentid != null "> and parentid = #{parentid}</if>
+            <if test="ancestors != null  and ancestors != ''"> and ancestors = #{ancestors}</if>
+            <if test="createtime != null "> and createtime = #{createtime}</if>
+            <if test="onum != null  and onum != ''"> and onum = #{onum}</if>
+            <if test="oemail != null  and oemail != ''"> and oemail = #{oemail}</if>
+            <if test="ostatus != null  and ostatus != ''"> and ostatus = #{ostatus}</if>
+            <if test="ojob != null  and ojob != ''"> and ojob = #{ojob}</if>
+            <if test="orole != null  and orole != ''"> and orole = #{orole}</if>
+            <if test="onote != null  and onote != ''"> and onote = #{onote}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysOrgById" parameterType="Long" resultMap="SysOrgResult">
+        <include refid="selectSysOrgVo"/>
+        where oid = #{oid}
+    </select>
+        
+    <insert id="insertSysOrg" parameterType="SysOrg" useGeneratedKeys="true" keyProperty="oid">
+        insert into sys_org
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="opwd != null and opwd != ''">opwd,</if>
+            <if test="oname != null and oname != ''">oname,</if>
+            <if test="parentid != null">parentid,</if>
+            <if test="ancestors != null">ancestors,</if>
+            <if test="createtime != null">createtime,</if>
+            <if test="onum != null and onum != ''">onum,</if>
+            <if test="oemail != null">oemail,</if>
+            <if test="ostatus != null">ostatus,</if>
+            <if test="ojob != null">ojob,</if>
+            <if test="orole != null">orole,</if>
+            <if test="onote != null">onote,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="opwd != null and opwd != ''">#{opwd},</if>
+            <if test="oname != null and oname != ''">#{oname},</if>
+            <if test="parentid != null">#{parentid},</if>
+            <if test="ancestors != null">#{ancestors},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="onum != null and onum != ''">#{onum},</if>
+            <if test="oemail != null">#{oemail},</if>
+            <if test="ostatus != null">#{ostatus},</if>
+            <if test="ojob != null">#{ojob},</if>
+            <if test="orole != null">#{orole},</if>
+            <if test="onote != null">#{onote},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysOrg" parameterType="SysOrg">
+        update sys_org
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="opwd != null and opwd != ''">opwd = #{opwd},</if>
+            <if test="oname != null and oname != ''">oname = #{oname},</if>
+            <if test="parentid != null">parentid = #{parentid},</if>
+            <if test="ancestors != null">ancestors = #{ancestors},</if>
+            <if test="createtime != null">createtime = #{createtime},</if>
+            <if test="onum != null and onum != ''">onum = #{onum},</if>
+            <if test="oemail != null">oemail = #{oemail},</if>
+            <if test="ostatus != null">ostatus = #{ostatus},</if>
+            <if test="ojob != null">ojob = #{ojob},</if>
+            <if test="orole != null">orole = #{orole},</if>
+            <if test="onote != null">onote = #{onote},</if>
+        </trim>
+        where oid = #{oid}
+    </update>
+
+    <delete id="deleteSysOrgById" parameterType="Long">
+        delete from sys_org where oid = #{oid}
+    </delete>
+
+    <delete id="deleteSysOrgByIds" parameterType="String">
+        delete from sys_org where oid in 
+        <foreach item="oid" collection="array" open="(" separator="," close=")">
+            #{oid}
+        </foreach>
+    </delete>
+    
+</mapper>
