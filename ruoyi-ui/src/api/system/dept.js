@@ -16,7 +16,7 @@ export function listDeptExcludeChild(deptId) {
     method: 'get'
   })
 }
-
+ 
 // 查询部门详细
 export function getDept(deptId) {
   return request({

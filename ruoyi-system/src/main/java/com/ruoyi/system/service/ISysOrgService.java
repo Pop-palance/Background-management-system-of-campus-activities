@@ -1,6 +1,8 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+
+import com.ruoyi.common.core.domain.entity.SysDept;
 import com.ruoyi.system.domain.SysOrg;
 
 /**
@@ -58,4 +60,14 @@ public interface ISysOrgService
      * @return 结果
      */
     public int deleteSysOrgById(Long oid);
+
+//    /**
+//     * 校验部门名称是否唯一
+//     *
+//     * @param org 组织信息
+//     * @return 结果
+//     */
+//    public String checkOrgNameUnique(SysOrg org);
+
+
 }

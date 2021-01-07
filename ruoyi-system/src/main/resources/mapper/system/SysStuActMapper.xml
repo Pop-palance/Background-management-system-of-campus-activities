@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysStuActMapper">
+
+<!--    数据库属性列与定义实体属性对应-->
+    <resultMap type="SysStuAct" id="SysStuActResult">
+        <result property="sno"    column="sno"    />
+        <result property="aid"    column="aid"    />
+        <result property="grade"    column="grade"    />
+    </resultMap>
+<!--定义VO-->
+    <sql id="selectSysStuActVo">
+        select sno, aid, grade from sys_stu_act
+    </sql>
+<!--通过成绩查询-->
+    <select id="selectSysStuActList" parameterType="SysStuAct" resultMap="SysStuActResult">
+        <include refid="selectSysStuActVo"/>
+        <where>
+            <if test="sno != null and sno!='' "> and sno = #{sno}</if>
+            <if test="aid != null and aid!='' "> and aid = #{aid}</if>
+            <if test="grade != null and grade!='' "> and grade = #{grade}</if>
+        </where>
+    </select>
+<!--    通过学号查询-->
+    <select id="selectSysStuActById" parameterType="String" resultMap="SysStuActResult">
+        <include refid="selectSysStuActVo"/>
+        where sno = #{sno}
+    </select>
+<!--通过活动号查找-->
+<!--    <select id="selectSysStuActList" parameterType="String" resultMap="SysStuActResult">-->
+<!--        <include refid="selectSysStuActVo"/>-->
+<!--        where aid=#{aid}-->
+<!--    </select>-->
+<!--插入学生活动-->
+    <insert id="insertSysStuAct" parameterType="SysStuAct">
+        insert into sys_stu_act
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sno != null">sno,</if>
+            <if test="aid != null">aid,</if>
+            <if test="grade != null">grade,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sno != null">#{sno},</if>
+            <if test="aid != null">#{aid},</if>
+            <if test="grade != null">#{grade},</if>
+         </trim>
+    </insert>
+<!--更新该学生对应的活动号与成绩-->
+    <update id="updateSysStuAct" parameterType="SysStuAct">
+        update sys_stu_act
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="aid != null">aid = #{aid},</if>
+            <if test="grade != null">grade = #{grade},</if>
+        </trim>
+        where sno = #{sno}
+    </update>
+<!--根据学号删除学生-->
+    <delete id="deleteSysStuActById" parameterType="String">
+        delete from sys_stu_act where sno = #{sno}
+    </delete>
+<!--删除多组学生-->
+    <delete id="deleteSysStuActByIds" parameterType="String">
+        delete from sys_stu_act where sno in 
+        <foreach item="sno" collection="array" open="(" separator="," close=")">
+            #{sno}
+        </foreach>
+    </delete>
+    
+</mapper>

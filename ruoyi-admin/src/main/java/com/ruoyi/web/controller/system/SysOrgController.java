@@ -1,8 +1,13 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.constant.UserConstants;
+//import com.ruoyi.common.core.domain.entity.SysOrg;
+import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -78,6 +83,20 @@ public class SysOrgController extends BaseController
     {
         return toAjax(sysOrgService.insertSysOrg(sysOrg));
     }
+
+
+//    @PreAuthorize("@ss.hasPermi('system:org:add')")
+//    @Log(title = "组织", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@Validated @RequestBody SysOrg org)
+//    {
+//        if (UserConstants.NOT_UNIQUE.equals(sysOrgService.checkOrgNameUnique(org)))
+//        {
+//            return AjaxResult.error("新增组织'" +org.getOname() + "'失败，组织名称已存在");
+//        }
+//        org.setCreateBy(SecurityUtils.getUsername());
+//        return toAjax(sysOrgService.insertSysOrg(org));
+//    }
 
     /**
      * 修改组织

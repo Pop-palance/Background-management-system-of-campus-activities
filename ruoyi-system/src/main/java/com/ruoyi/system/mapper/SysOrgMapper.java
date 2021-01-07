@@ -1,7 +1,11 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+
+import com.ruoyi.common.core.domain.entity.SysDept;
 import com.ruoyi.system.domain.SysOrg;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * 组织Mapper接口
@@ -9,6 +13,7 @@ import com.ruoyi.system.domain.SysOrg;
  * @author ruoyi
  * @date 2021-01-06
  */
+@Repository
 public interface SysOrgMapper 
 {
     /**
@@ -58,4 +63,16 @@ public interface SysOrgMapper
      * @return 结果
      */
     public int deleteSysOrgByIds(Long[] oids);
+
+
+    /**
+     * 校验部门名称是否唯一
+     *
+     * @param oname 部门名称
+     * @param parentid 父部门ID
+     * @return 结果
+     */
+    public SysOrg checkOrgNameUnique(@Param("oname") String oname, @Param("parentid") Long parentid);
+
+//    SysOrg checkOrgNameUnique(String oname, Long parentid);
 }

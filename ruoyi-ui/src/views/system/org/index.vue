@@ -347,6 +347,7 @@ export default {
         this.open = true;
         this.title = "修改组织";
       });
+      console.log(this.form);
     },
     /** 提交按钮 */
     submitForm() {

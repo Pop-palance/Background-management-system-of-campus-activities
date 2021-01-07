@@ -1,6 +1,10 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.constant.UserConstants;
+import com.ruoyi.common.core.domain.entity.SysDept;
+import com.ruoyi.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SysOrgMapper;
@@ -90,4 +94,20 @@ public class SysOrgServiceImpl implements ISysOrgService
     {
         return sysOrgMapper.deleteSysOrgById(oid);
     }
+
+//    @Override
+//    public String checkOrgNameUnique(SysOrg org) {
+//        return null;
+//    }
+
+//    @Override
+//    public String checkOrgNameUnique(SysOrg org) {
+//        Long oid = StringUtils.isNull(org.getOid()) ? -1L : org.getOid();
+//        SysOrg info = sysOrgMapper.checkOrgNameUnique(org.getOname(), org.getParentid());
+//        if (StringUtils.isNotNull(info) && info.getOid().longValue() != oid.longValue())
+//        {
+//            return UserConstants.NOT_UNIQUE;
+//        }
+//        return UserConstants.UNIQUE;
+//    }
 }
